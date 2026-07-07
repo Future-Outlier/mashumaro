@@ -284,20 +284,20 @@ def test_type_name_for_unpacks_py_less_than_311():
         )
         == "Tuple[str, Tuple[int, ...], int]"
     )
-    assert _type_name(Tuple[Unpack[Ts]]) == "Tuple[Unpack[Ts]]"
+    assert _type_name(Tuple[Unpack[Ts]]) == "Tuple[Unpack[~Ts]]"
     assert (
         _type_name(Tuple[int, Unpack[Ts], int])
-        == "Tuple[int, Unpack[Ts], int]"
+        == "Tuple[int, Unpack[~Ts], int]"
     )
-    assert _type_name(Generic[Unpack[Ts]]) == "Generic[Unpack[Ts]]"
+    assert _type_name(Generic[Unpack[Ts]]) == "Generic[Unpack[~Ts]]"
     assert (
         _type_name(Generic[K, Unpack[Ts], V])
-        == "Generic[Any, Unpack[Ts], Any]"
+        == "Generic[Any, Unpack[~Ts], Any]"
     )
     assert _type_name(Unpack[Tuple[int]]) == "int"
     assert _type_name(Unpack[Tuple[int, float]]) == "int, float"
-    assert _type_name(Unpack[Ts]) == "Unpack[Ts]"
-    assert _type_name(Ts) == "Ts"
+    assert _type_name(Unpack[Ts]) == "Unpack[~Ts]"
+    assert _type_name(Ts) == "~Ts"
 
     # this doesn't work on python<3.11
     # assert (
