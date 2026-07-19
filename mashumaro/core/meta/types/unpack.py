@@ -1134,7 +1134,7 @@ def unpack_named_tuple(spec: ValueSpec) -> Expression:
         with lines.indent("try:"):
             for unpacker in unpackers:
                 lines.append(f"fields.append({unpacker})")
-        with lines.indent("except IndexError:"):
+        with lines.indent("except (IndexError, KeyError):"):
             lines.append("pass")
         field_type = spec.builder.get_type_name_identifier(spec.type)
         lines.append(f"return {field_type}(*fields)")

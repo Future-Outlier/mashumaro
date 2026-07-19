@@ -204,6 +204,24 @@ def test_untyped_named_tuple_with_defaults_as_dict():
     assert DataClass.from_dict({"munpwd": {"i": 1, "f": 2.0}}) == obj
 
 
+def test_named_tuple_as_dict_with_missing_default_key():
+    @dataclass
+    class DataClass(DataClassDictMixin):
+        mnpwd: MyNamedTupleWithDefaults
+        munpwd: MyUntypedNamedTupleWithDefaults
+
+        class Config(BaseConfig):
+            namedtuple_as_dict = True
+
+    # Omitting a key that has a default should fall back to that default,
+    # the same way an omitted trailing element does for the as_list engine.
+    obj = DataClass(
+        mnpwd=MyNamedTupleWithDefaults(i=1),
+        munpwd=MyUntypedNamedTupleWithDefaults(i=1),
+    )
+    assert DataClass.from_dict({"mnpwd": {"i": 1}, "munpwd": {"i": 1}}) == obj
+
+
 def test_named_tuple_as_dict_and_as_list_engine():
     @dataclass
     class DataClass(DataClassDictMixin):
