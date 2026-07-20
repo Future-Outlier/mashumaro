@@ -273,6 +273,12 @@ class MyNamedTupleWithDefaults(NamedTuple):
     f: float = 2.0
 
 
+class MyNamedTupleWithRequiredAndDefaults(NamedTuple):
+    i: int
+    s: str = "default"
+    f: float = 42.0
+
+
 class MyNamedTupleWithOptional(NamedTuple):
     i: Optional[int]
     f: int
