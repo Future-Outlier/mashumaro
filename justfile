@@ -17,6 +17,9 @@ format:
 test:
     pytest tests
 
+test-fast:
+    pytest tests -n auto
+
 test-with-coverage:
     pytest --cov . tests
 
