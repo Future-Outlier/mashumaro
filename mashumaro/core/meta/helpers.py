@@ -766,10 +766,10 @@ def is_type_alias_type(typ: Type) -> bool:
         return False
 
 
-def resolve_type_alias_type(t: Type) -> Type:
-    while is_type_alias_type(t):
-        t = t.__value__
-    return t
+def resolve_type_alias_type(typ: Type) -> Type:
+    while is_type_alias_type(typ):
+        typ = typ.__value__
+    return typ
 
 
 def type_var_has_default(typ: Any) -> bool:
